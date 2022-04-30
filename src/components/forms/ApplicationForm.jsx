@@ -23,18 +23,16 @@ export default function ApplicationForm() {
           register={register}
           className="input-field"
         />
-        {
-          <CustomDatePicker
-            name="startDate"
-            placeholderText="Enter Date"
-            label="Start Date"
-            control={control}
-            className="input-field"
-          />
-        }
+
+        <CustomDatePicker
+          name="startDate"
+          placeholderText="Enter Date"
+          label="Start Date"
+          control={control}
+          className="input-field"
+        />
       </div>
       <input className="submit-btn" type="submit" value="Submit" />
     </form>
-
   );
 }
