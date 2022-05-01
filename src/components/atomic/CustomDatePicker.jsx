@@ -9,19 +9,20 @@ const CustomDatePicker = (props) => {
         type="date"
         control={props.control}
         name={props.name}
-        rules={{ required: true }}
+        rules={{ required: 'Start date is required' }}
         render={({ field }) => (
           <DatePicker
             className={props.className}
-            wrapperClassName="date-picker"
             selected={field.value}
-            onChange={(date) => field.onChange(date)}
+            onChange={(val) => field.onChange(val)}
             minDate={props.minStartDate}
             placeholderText={props.placeholderText}
           />
         )}
       />
-    {props.errors[props.name] && <p className="error">{props.errorMessage}</p>}
+      {props.errors[props.name] && (
+        <p className="error">{props.errorMessage}</p>
+      )}
     </section>
   );
 };
