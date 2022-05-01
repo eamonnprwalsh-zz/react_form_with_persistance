@@ -3,13 +3,17 @@ const Input = (props) => {
     <section>
       <label>{props.label}</label>
       <input
-        {...props.register(props.name)}
-        placeholder={props.placeholderText}
-        control={props.control}
         className={props.className}
+        {...props.register(props.name, {
+          required: props.required,
+          validate: props.validator,
+        })}
+        placeholder={props.placeholderText}
       />
+      {props.errors.age && <p className="error">Age is invalid</p>}
     </section>
   );
 };
 
 export default Input;
+ 
