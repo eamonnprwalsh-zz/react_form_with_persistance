@@ -1,4 +1,4 @@
-import ReactDatePicker from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import { Controller } from 'react-hook-form';
 
 const CustomDatePicker = (props) => {
@@ -6,20 +6,22 @@ const CustomDatePicker = (props) => {
     <section>
       <label>{props.label}</label>
       <Controller
+        type="date"
         control={props.control}
         name={props.name}
-        rules={{ required: 'this is required' }}
+        rules={{ required: true }}
         render={({ field }) => (
-          <ReactDatePicker
+          <DatePicker
             className={props.className}
+            wrapperClassName="date-picker"
             selected={field.value}
             onChange={(date) => field.onChange(date)}
-            //onChangeRaw={(event) => props.validator(event.target.value)}
+            minDate={props.minStartDate}
             placeholderText={props.placeholderText}
           />
         )}
       />
-    {props.errors.startDate && <p className="error">Start date is invalid</p>}
+    {props.errors[props.name] && <p className="error">{props.errorMessage}</p>}
     </section>
   );
 };

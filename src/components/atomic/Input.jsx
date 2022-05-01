@@ -10,7 +10,7 @@ const Input = (props) => {
         })}
         placeholder={props.placeholderText}
       />
-      {props.errors.age && <p className="error">Age is invalid</p>}
+      {props.errors[props.name] && <p className="error">{props.errorMessage}</p>}
     </section>
   );
 };
