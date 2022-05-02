@@ -4,7 +4,7 @@ import reduxExpire from './reduxExpire';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
-import formReducer from '../../components/forms/formSlice';
+import applicationFormReducer from '../../components/forms/applicationFormSlice';
 
 const key = ['primary'];
 
@@ -12,15 +12,15 @@ const persistConfig = {
   key,
   storage,
   transforms: [
-    reduxExpire('form', {
-      persistedAtKey: 'form_cache',
+    reduxExpire('applicationForm', {
+      persistedAtKey: 'applicationForm_cache',
       expireMs: 5000,
       expiredState: { value: {} },
     }),
   ],
 };
 
-const reducers = combineReducers({ form: formReducer });
+const reducers = combineReducers({ applicationForm: applicationFormReducer });
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = createStore(persistedReducer, applyMiddleware(thunk));

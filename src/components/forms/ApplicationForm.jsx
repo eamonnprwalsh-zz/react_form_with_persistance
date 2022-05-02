@@ -1,26 +1,47 @@
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { parseISO } from 'date-fns';
 import CustomDatePicker from '../atomic/CustomDatePicker';
 import Input from '../atomic/Input';
 import {
-  isNumberBetween17and100,
+  isNumberBetween,
   isEmailValid,
   minStartDate,
 } from '../../services/validationService';
+import { updateApplicationForm, selectApplicationForm } from './applicationFormSlice';
+
+let ageRange = isNumberBetween(17, 100);
 
 export default function ApplicationForm() {
+  console.log('Rendering ApplicationForm');
+  const applicationForm = useSelector(selectApplicationForm);
+  console.log('applicationForm', applicationForm);
+  const dispatch = useDispatch();
+
   const {
     control,
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: Object.entries(applicationForm).length
+      ? {
+          age: applicationForm.age,
+          email: applicationForm.email,
+          startDate: parseISO(applicationForm.startDate),
+        }
+      : {},
+  });
 
   return (
-    <form className="form" onSubmit={handleSubmit((data) => {
-      console.log('SETTING DATA', data);
-    })}>
+    <form
+      className="form"
+      onSubmit={handleSubmit((data) => {
+        dispatch(updateApplicationForm(data));
+      })}
+    >
       <div className="container">
         <Input
           className="input-field"
@@ -29,7 +50,7 @@ export default function ApplicationForm() {
           label="Age"
           register={register}
           required={true}
-          validator={isNumberBetween17and100}
+          validator={ageRange}
           errors={errors}
           errorMessage={'Age is invalid'}
         />

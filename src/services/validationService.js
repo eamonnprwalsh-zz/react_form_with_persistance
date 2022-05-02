@@ -1,6 +1,8 @@
-export const isNumberBetween17and100 = (num) => {
-  return num.length === 0 || (num > 17 && num < 100);
-};
+export const isNumberBetween = (min, max) => {
+  return function(num) {
+    return num.length === 0 || (num > min && num < max);
+  }
+}
 
 export const isEmailValid = (email) => {
   if(typeof email !== 'string') throw new Error('String only');
