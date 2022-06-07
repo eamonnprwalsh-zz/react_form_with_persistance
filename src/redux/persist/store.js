@@ -1,16 +1,18 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { persistReducer } from 'redux-persist';
 import reduxExpire from './reduxExpire';
-import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
+import { CookieStorage } from 'redux-persist-cookie-storage'
+import Cookies from 'cookies-js'
 
 import applicationFormReducer from '../../components/forms/applicationFormSlice';
 
 const key = ['primary'];
 
+
 const persistConfig = {
   key,
-  storage,
+  storage: new CookieStorage(Cookies/*, options */),
   transforms: [
     reduxExpire('applicationForm', {
       persistedAtKey: 'applicationForm_cache',
